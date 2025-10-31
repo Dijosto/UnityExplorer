@@ -42,15 +42,21 @@ namespace UnityExplorer.CacheObject
             foreach (Type declaringType in types)
             {
                 foreach (PropertyInfo prop in declaringType.GetProperties(flags))
+#if !INTEROP
                     if (prop.DeclaringType == declaringType)
+#endif
                         TryCacheMember(prop, props, cachedSigs, declaringType, inspector);
 
                 foreach (FieldInfo field in declaringType.GetFields(flags))
+#if !INTEROP
                     if (field.DeclaringType == declaringType)
+#endif
                         TryCacheMember(field, fields, cachedSigs, declaringType, inspector);
 
                 foreach (MethodInfo method in declaringType.GetMethods(flags))
+#if !INTEROP
                     if (method.DeclaringType == declaringType)
+#endif
                         TryCacheMember(method, methods, cachedSigs, declaringType, inspector);
 
             }

@@ -140,6 +140,14 @@ namespace UnityExplorer.Inspectors
             else
             {
                 TargetType = target.GetActualType();
+#if INTEROP
+                // Fallback for Il2CppInterop when GetActualType fails to resolve game types
+                if (TargetType == null || TargetType == typeof(object) ||
+                    TargetType.Name == "Object" || TargetType.Name == "Il2CppObjectBase")
+                {
+                    TargetType = target.GetType();
+                }
+#endif
                 prefix = "[R]";
             }
 

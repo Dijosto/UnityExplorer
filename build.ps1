@@ -51,6 +51,27 @@ Move-Item -Path $Path/UniverseLib.Mono.dll -Destination $Path/UserLibs -Force
 Remove-Item $Path/../UnityExplorer.MelonLoader.Mono.zip -ErrorAction SilentlyContinue
 7z a $Path/../UnityExplorer.MelonLoader.Mono.zip .\$Path\*
 
+# ----------- MelonLoader IL2CPP Interop -----------
+dotnet build src/UnityExplorer.sln -c Release_ML_Cpp_Interop
+$Path = "Release/UnityExplorer.MelonLoader.IL2CPP.Interop"
+# ILRepack
+lib/ILRepack.exe /target:library /lib:lib/net6 /lib:lib/interop /lib:$Path /internalize /out:$Path/UnityExplorer.ML.IL2CPP.Interop.dll $Path/UnityExplorer.ML.IL2CPP.Interop.dll $Path/mcs.dll
+# (cleanup and move files)
+Remove-Item $Path/UnityExplorer.ML.IL2CPP.Interop.deps.json
+Remove-Item $Path/Tomlet.dll
+Remove-Item $Path/mcs.dll
+Remove-Item $Path/Iced.dll
+Remove-Item $Path/Il2CppInterop.Common.dll
+Remove-Item $Path/Il2CppInterop.Runtime.dll
+Remove-Item $Path/Microsoft.Extensions.Logging.Abstractions.dll
+New-Item -Path "$Path" -Name "Mods" -ItemType "directory" -Force
+Move-Item -Path $Path/UnityExplorer.ML.IL2CPP.Interop.dll -Destination $Path/Mods -Force
+New-Item -Path "$Path" -Name "UserLibs" -ItemType "directory" -Force
+Move-Item -Path $Path/UniverseLib.IL2CPP.Interop.ML.dll -Destination $Path/UserLibs -Force
+# (create zip archive)
+Remove-Item $Path/../UnityExplorer.MelonLoader.IL2CPP.Interop.zip -ErrorAction SilentlyContinue
+7z a $Path/../UnityExplorer.MelonLoader.IL2CPP.Interop.zip .\$Path\*
+
 # ----------- BepInEx IL2CPP -----------
 dotnet build src/UnityExplorer.sln -c Release_BIE_Cpp
 $Path = "Release/UnityExplorer.BepInEx.IL2CPP"
