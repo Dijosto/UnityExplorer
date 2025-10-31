@@ -228,15 +228,19 @@ namespace UnityExplorer.Tests
 
             ExplorerCore.Log($"IL2CPP 7: Dictionary of Il2Cpp String and Il2Cpp Object");
             IL2CPP_BoxedDict = new();
+#if !INTEROP
             IL2CPP_BoxedDict[(Il2CppSystem.String)"one"] = new Il2CppSystem.Int32 { m_value = 1 }.BoxIl2CppObject();
             IL2CPP_BoxedDict[(Il2CppSystem.String)"two"] = new Il2CppSystem.Int32 { m_value = 2 }.BoxIl2CppObject();
             IL2CPP_BoxedDict[(Il2CppSystem.String)"three"] = new Il2CppSystem.Int32 { m_value = 3 }.BoxIl2CppObject();
             IL2CPP_BoxedDict[(Il2CppSystem.String)"four"] = new Il2CppSystem.Int32 { m_value = 4 }.BoxIl2CppObject();
+#endif
 
             ExplorerCore.Log($"IL2CPP 8: List of boxed Il2Cpp Objects");
             IL2CPP_listOfBoxedObjects = new List<Il2CppSystem.Object>();
             IL2CPP_listOfBoxedObjects.Add((Il2CppSystem.String)"boxedString");
+#if !INTEROP
             IL2CPP_listOfBoxedObjects.Add(new Il2CppSystem.Int32 { m_value = 5 }.BoxIl2CppObject());
+#endif
             IL2CPP_listOfBoxedObjects.Add(Color.red.BoxIl2CppObject());
             // boxed enum test
             try
@@ -267,13 +271,17 @@ namespace UnityExplorer.Tests
 
             ExplorerCore.Log($"IL2CPP 10: Il2Cpp reference array of boxed objects");
             IL2CPP_ReferenceArray = new Il2CppReferenceArray<Il2CppSystem.Object>(3);
+#if !INTEROP
             IL2CPP_ReferenceArray[0] = new Il2CppSystem.Int32 { m_value = 5 }.BoxIl2CppObject();
+#endif
             IL2CPP_ReferenceArray[1] = null;
             IL2CPP_ReferenceArray[2] = (Il2CppSystem.String)"whats up";
 
             ExplorerCore.Log($"IL2CPP 11: Misc il2cpp members");
+#if !INTEROP
             IL2CPP_BoxedInt = new Il2CppSystem.Int32() { m_value = 5 }.BoxIl2CppObject();
             IL2CPP_Int = new Il2CppSystem.Int32 { m_value = 420 };
+#endif
             IL2CPP_Decimal = new Il2CppSystem.Decimal(1f);
             IL2CPP_DecimalBoxed = new Il2CppSystem.Decimal(1f).BoxIl2CppObject();
             IL2CPP_Vector3Boxed = Vector3.down.BoxIl2CppObject();

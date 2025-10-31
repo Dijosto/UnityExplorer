@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//d/repos/WTFF/UnityExplorer/**)",
+      "Bash(powershell -Command:*)",
+      "Read(//d/New folder/steamapps/common/Yet Another Zombie Survivors/MelonLoader/**)",
+      "Bash(dotnet build:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
